@@ -1,0 +1,135 @@
+2025-03-17 15:47:44,232 - INFO - Starting extraction process
+2025-03-17 15:47:44,232 - INFO - Processing category: general
+2025-03-17 15:47:44,232 - INFO - Processing https://www.breathebhutan.com/why-travel-bhutan/
+2025-03-17 15:47:46,284 - INFO - Saved data to data/general/why-travel-bhutan.json
+2025-03-17 15:47:47,289 - INFO - Processing https://www.breathebhutan.com/why-breathe-bhutan/
+2025-03-17 15:47:48,804 - INFO - Saved data to data/general/why-breathe-bhutan.json
+2025-03-17 15:47:49,809 - INFO - Processing https://www.breathebhutan.com/travel-guide-and-information-for-bhutan/discount-incentives-for-bhutan-travel-visa-for-year-2023-2024-2025-2026-2027/
+2025-03-17 15:47:51,796 - INFO - Saved data to data/general/discount-incentives-for-bhutan-travel-visa-for-year-2023-2024-2025-2026-2027.json
+2025-03-17 15:47:52,802 - INFO - Created index for general with 3 items
+2025-03-17 15:47:52,802 - INFO - Processing category: tours
+2025-03-17 15:47:52,803 - INFO - Processing https://www.breathebhutan.com/cultural-tours-to-bhutan/
+2025-03-17 15:47:54,392 - INFO - Saved data to data/tours/cultural-tours-to-bhutan.json
+2025-03-17 15:47:55,394 - INFO - Created index for tours with 1 items
+2025-03-17 15:47:55,395 - INFO - Processing category: festivals
+2025-03-17 15:47:55,395 - INFO - Processing https://www.breathebhutan.com/festivalsinbhutan/
+2025-03-17 15:47:57,043 - INFO - Saved data to data/festivals/festivalsinbhutan.json
+2025-03-17 15:47:58,047 - INFO - Created index for festivals with 1 items
+2025-03-17 15:47:58,047 - INFO - Processing category: trekking
+2025-03-17 15:47:58,047 - INFO - Processing https://www.breathebhutan.com/trekking-in-bhutan/
+2025-03-17 15:47:59,871 - INFO - Saved data to data/trekking/trekking-in-bhutan.json
+2025-03-17 15:48:00,878 - INFO - Created index for trekking with 1 items
+2025-03-17 15:48:00,878 - INFO - Processing category: itineraries
+2025-03-17 15:48:00,878 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/beyond-the-beaten-path-a-journey-to-gasa-and-laya-gasa-festival-10-days-9-nights/
+2025-03-17 15:48:03,299 - INFO - Saved data to data/itineraries/beyond-the-beaten-path-a-journey-to-gasa-and-laya-gasa-festival-10-days-9-nights.json
+2025-03-17 15:48:04,305 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/the-best-of-luxury-travel-in-bhutan-8-days-7-nights/
+2025-03-17 15:48:06,203 - INFO - Saved data to data/itineraries/the-best-of-luxury-travel-in-bhutan-8-days-7-nights.json
+2025-03-17 15:48:07,208 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/punakha-festival-bhutan-travel-package/
+2025-03-17 15:48:09,202 - INFO - Saved data to data/itineraries/punakha-festival-bhutan-travel-package.json
+2025-03-17 15:48:10,207 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/blissful-west-with-paro-festival-bhutan-travel-package/
+2025-03-17 15:48:12,116 - INFO - Saved data to data/itineraries/blissful-west-with-paro-festival-bhutan-travel-package.json
+2025-03-17 15:48:13,121 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/thimphu-festival-bhutan-travel-package/
+2025-03-17 15:48:15,196 - INFO - Saved data to data/itineraries/thimphu-festival-bhutan-travel-package.json
+2025-03-17 15:48:16,200 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/royal-highland-festival-bhutan-travel-package/
+2025-03-17 15:48:18,059 - INFO - Saved data to data/itineraries/royal-highland-festival-bhutan-travel-package.json
+2025-03-17 15:48:19,065 - INFO - Created index for itineraries with 6 items
+2025-03-17 15:48:19,065 - INFO - Processing category: special_experiences
+2025-03-17 15:48:19,065 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/meditation-yoga-class-in-bhutan/
+2025-03-17 15:48:20,763 - INFO - Saved data to data/special_experiences/meditation-yoga-class-in-bhutan.json
+2025-03-17 15:48:21,768 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/consult-a-buddhist-astrologer/
+2025-03-17 15:48:23,351 - INFO - Saved data to data/special_experiences/consult-a-buddhist-astrologer.json
+2025-03-17 15:48:24,356 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/bhutan-helicopter-rides-and-tours/
+2025-03-17 15:48:26,251 - INFO - Saved data to data/special_experiences/bhutan-helicopter-rides-and-tours.json
+2025-03-17 15:48:27,254 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/get-a-buddhist-tattoo-in-bhutan/
+2025-03-17 15:48:29,137 - INFO - Saved data to data/special_experiences/get-a-buddhist-tattoo-in-bhutan.json
+2025-03-17 15:48:30,142 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/consult-a-traditional-medicine-doctor/
+2025-03-17 15:48:31,670 - INFO - Saved data to data/special_experiences/consult-a-traditional-medicine-doctor.json
+2025-03-17 15:48:32,675 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/fly-fishing-in-bhutan/
+2025-03-17 15:48:34,355 - INFO - Saved data to data/special_experiences/fly-fishing-in-bhutan.json
+2025-03-17 15:48:35,361 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/experience-rural-life-in-bhutan/
+2025-03-17 15:48:37,210 - INFO - Saved data to data/special_experiences/experience-rural-life-in-bhutan.json
+2025-03-17 15:48:38,216 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/weaving-class-on-traditional-textiles/
+2025-03-17 15:48:39,828 - INFO - Saved data to data/special_experiences/weaving-class-on-traditional-textiles.json
+2025-03-17 15:48:40,834 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/meet-interact-with-bhutanese-personalities/
+2025-03-17 15:48:42,850 - INFO - Saved data to data/special_experiences/meet-interact-with-bhutanese-personalities.json
+2025-03-17 15:48:43,855 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/travel-package-for-dolls-plushies/
+2025-03-17 15:48:45,540 - INFO - Saved data to data/special_experiences/travel-package-for-dolls-plushies.json
+2025-03-17 15:48:46,543 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/archery/
+2025-03-17 15:48:48,195 - INFO - Saved data to data/special_experiences/archery.json
+2025-03-17 15:48:49,201 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/hot-stone-bath/
+2025-03-17 15:48:51,198 - INFO - Saved data to data/special_experiences/hot-stone-bath.json
+2025-03-17 15:48:52,203 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/night-at-a-monastery/
+2025-03-17 15:48:53,899 - INFO - Saved data to data/special_experiences/night-at-a-monastery.json
+2025-03-17 15:48:54,901 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/basic-painting-art-class/
+2025-03-17 15:48:56,675 - INFO - Saved data to data/special_experiences/basic-painting-art-class.json
+2025-03-17 15:48:57,677 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/nightlife-in-bhutan/
+2025-03-17 15:48:59,754 - INFO - Saved data to data/special_experiences/nightlife-in-bhutan.json
+2025-03-17 15:49:00,761 - INFO - Created index for special_experiences with 15 items
+2025-03-17 15:49:00,761 - INFO - Processing category: reviews
+2025-03-17 15:49:00,761 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/yanai-new-zealand-february-2025/
+2025-03-17 15:49:02,858 - INFO - Saved data to data/reviews/yanai-new-zealand-february-2025.json
+2025-03-17 15:49:03,862 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/jenny-jung-yee-france-malaysia-december-2024/
+2025-03-17 15:49:05,904 - INFO - Saved data to data/reviews/jenny-jung-yee-france-malaysia-december-2024.json
+2025-03-17 15:49:06,909 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/tanya-manterfield-cape-town-july-2024/
+2025-03-17 15:49:08,977 - INFO - Saved data to data/reviews/tanya-manterfield-cape-town-july-2024.json
+2025-03-17 15:49:09,981 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/janna-taninbaum-new-york-november-2024/
+2025-03-17 15:49:12,094 - INFO - Saved data to data/reviews/janna-taninbaum-new-york-november-2024.json
+2025-03-17 15:49:13,099 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/philipp-wife/
+2025-03-17 15:49:15,256 - INFO - Saved data to data/reviews/philipp-wife.json
+2025-03-17 15:49:16,261 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/christine-may-philippines-may-2024/
+2025-03-17 15:49:18,186 - INFO - Saved data to data/reviews/christine-may-philippines-may-2024.json
+2025-03-17 15:49:19,192 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/marek-family-slovakia-february-2024/
+2025-03-17 15:49:21,202 - INFO - Saved data to data/reviews/marek-family-slovakia-february-2024.json
+2025-03-17 15:49:22,208 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/bobby-paul-new-zealand-may-2024/
+2025-03-17 15:49:24,471 - INFO - Saved data to data/reviews/bobby-paul-new-zealand-may-2024.json
+2025-03-17 15:49:25,477 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/philip-caluya-philippines-spring-2024/
+2025-03-17 15:49:27,660 - INFO - Saved data to data/reviews/philip-caluya-philippines-spring-2024.json
+2025-03-17 15:49:28,665 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/shaila-jivan-south-africa/
+2025-03-17 15:49:30,886 - INFO - Saved data to data/reviews/shaila-jivan-south-africa.json
+2025-03-17 15:49:31,892 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/lisa-pinsely-husband-usa-november-2024/
+2025-03-17 15:49:33,976 - INFO - Saved data to data/reviews/lisa-pinsely-husband-usa-november-2024.json
+2025-03-17 15:49:34,981 - INFO - Processing https://www.breathebhutan.com/our-guests-travelers-review-of-breathe-bhutan/sirinart-husband-usa-september-2024/
+2025-03-17 15:49:37,009 - INFO - Saved data to data/reviews/sirinart-husband-usa-september-2024.json
+2025-03-17 15:49:38,016 - INFO - Created index for reviews with 12 items
+2025-03-17 15:49:38,016 - INFO - Processing category: deals
+2025-03-17 15:49:38,016 - INFO - Processing https://www.breathebhutan.com/travel-deals-and-discount-offers-for-bhutan-travel/offer-at-pemako-in-punakha/
+2025-03-17 15:49:39,791 - INFO - Saved data to data/deals/offer-at-pemako-in-punakha.json
+2025-03-17 15:49:40,797 - INFO - Created index for deals with 1 items
+2025-03-17 15:49:40,798 - INFO - Extraction process completed
+2025-03-17 15:56:01,748 - INFO - Starting extraction process with Playwright
+2025-03-17 15:56:02,321 - INFO - Processing category: general
+2025-03-17 15:56:02,321 - INFO - Processing https://www.breathebhutan.com/why-travel-bhutan/
+2025-03-17 15:56:08,036 - INFO - Saved data to data/general/why-travel-bhutan.json
+2025-03-17 15:56:09,038 - INFO - Processing https://www.breathebhutan.com/why-breathe-bhutan/
+2025-03-17 15:56:12,810 - INFO - Saved data to data/general/why-breathe-bhutan.json
+2025-03-17 15:56:13,812 - INFO - Processing https://www.breathebhutan.com/travel-guide-and-information-for-bhutan/discount-incentives-for-bhutan-travel-visa-for-year-2023-2024-2025-2026-2027/
+2025-03-17 15:56:23,821 - INFO - Saved data to data/general/discount-incentives-for-bhutan-travel-visa-for-year-2023-2024-2025-2026-2027.json
+2025-03-17 15:56:24,824 - INFO - Created index for general with 3 items
+2025-03-17 15:56:24,824 - INFO - Processing category: tours
+2025-03-17 15:56:24,824 - INFO - Processing https://www.breathebhutan.com/cultural-tours-to-bhutan/
+2025-03-17 15:56:27,658 - INFO - Saved data to data/tours/cultural-tours-to-bhutan.json
+2025-03-17 15:56:28,661 - INFO - Created index for tours with 1 items
+2025-03-17 15:56:28,661 - INFO - Processing category: festivals
+2025-03-17 15:56:28,661 - INFO - Processing https://www.breathebhutan.com/festivalsinbhutan/
+2025-03-17 15:56:32,063 - INFO - Saved data to data/festivals/festivalsinbhutan.json
+2025-03-17 15:56:33,064 - INFO - Created index for festivals with 1 items
+2025-03-17 15:56:33,064 - INFO - Processing category: trekking
+2025-03-17 15:56:33,065 - INFO - Processing https://www.breathebhutan.com/trekking-in-bhutan/
+2025-03-17 15:56:38,569 - INFO - Saved data to data/trekking/trekking-in-bhutan.json
+2025-03-17 15:56:39,571 - INFO - Created index for trekking with 1 items
+2025-03-17 15:56:39,572 - INFO - Processing category: itineraries
+2025-03-17 15:56:39,572 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/beyond-the-beaten-path-a-journey-to-gasa-and-laya-gasa-festival-10-days-9-nights/
+2025-03-17 15:56:41,970 - INFO - Saved data to data/itineraries/beyond-the-beaten-path-a-journey-to-gasa-and-laya-gasa-festival-10-days-9-nights.json
+2025-03-17 15:56:42,971 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/the-best-of-luxury-travel-in-bhutan-8-days-7-nights/
+2025-03-17 15:56:46,983 - INFO - Saved data to data/itineraries/the-best-of-luxury-travel-in-bhutan-8-days-7-nights.json
+2025-03-17 15:56:47,984 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/punakha-festival-bhutan-travel-package/
+2025-03-17 15:56:51,522 - INFO - Saved data to data/itineraries/punakha-festival-bhutan-travel-package.json
+2025-03-17 15:56:52,523 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/blissful-west-with-paro-festival-bhutan-travel-package/
+2025-03-17 15:56:55,067 - INFO - Saved data to data/itineraries/blissful-west-with-paro-festival-bhutan-travel-package.json
+2025-03-17 15:56:56,068 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/thimphu-festival-bhutan-travel-package/
+2025-03-17 15:56:59,073 - INFO - Saved data to data/itineraries/thimphu-festival-bhutan-travel-package.json
+2025-03-17 15:57:00,074 - INFO - Processing https://www.breathebhutan.com/travel-itineraries/royal-highland-festival-bhutan-travel-package/
+2025-03-17 15:57:03,724 - INFO - Saved data to data/itineraries/royal-highland-festival-bhutan-travel-package.json
+2025-03-17 15:57:04,726 - INFO - Created index for itineraries with 6 items
+2025-03-17 15:57:04,726 - INFO - Processing category: special_experiences
+2025-03-17 15:57:04,727 - INFO - Processing https://www.breathebhutan.com/special-and-unique-travel-adventures-and-experiences-in-bhutan/meditation-yoga-class-in-bhutan/
