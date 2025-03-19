@@ -50,36 +50,62 @@ class RecommendationEngine:
             # For custom trips, check all data types
             return self._recommend_custom(preferences)
         
-        # Get base data
-        data = self.data_manager.load_data(data_type)
+        # Get data
+        data = self.data_manager.get_data(data_type)
+        if not data:
+            logger.warning(f"No data found for data type: {data_type}")
+            return []
         
-        # Filter by duration if specified
-        duration = preferences.get('duration')
-        if duration:
-            try:
-                duration_days = int(duration)
-                # Allow for some flexibility in duration (±2 days)
-                min_days = max(1, duration_days - 2)
-                max_days = duration_days + 2
-                data = self.data_manager.filter_by_duration(data_type, min_days, max_days)
-            except (ValueError, TypeError):
-                logger.warning(f"Invalid duration value: {duration}")
+        # For trekking, we want to show all options without filtering too much
+        if trip_type == 'trekking':
+            # If we specifically want all trek options without filtering
+            if preferences.get('show_all_options', False):
+                logger.info("Returning all trek options without filtering")
+                return data
+                
+            # Filter by interests but don't filter by duration/month
+            # This ensures all treks are shown but ordered by relevance
+            filtered_data = self._filter_by_interests(data, preferences.get('interests', []))
+            sorted_data = self._sort_by_relevance(filtered_data, preferences)
+            
+            # If we have fewer than 3 recommendations after filtering, return all treks
+            if len(sorted_data) < 3:
+                logger.info(f"Only {len(sorted_data)} treks after filtering, returning all {len(data)} treks")
+                return self._sort_by_relevance(data, preferences)
+                
+            return sorted_data
         
-        # Filter by travel month if specified
-        travel_month = preferences.get('travel_month')
-        if travel_month:
-            data = self._filter_by_travel_month(data, travel_month)
+        # For other trip types, apply all filters
+        filtered_data = data
         
-        # Filter by interests if specified
-        interests = preferences.get('interests', [])
-        if interests:
-            data = self._filter_by_interests(data, interests)
+        # Filter by duration
+        if 'duration' in preferences:
+            filtered_data = [
+                item for item in filtered_data 
+                if abs(item.get('duration', item.get('duration_days', 0)) - preferences['duration']) <= 2
+            ]
         
-        # Sort results by relevance (simple implementation)
-        results = self._sort_by_relevance(data, preferences)
+        # Filter by travel month
+        if 'travel_month' in preferences:
+            filtered_data = self._filter_by_travel_month(filtered_data, preferences['travel_month'])
         
-        logger.info(f"Generated {len(results)} recommendations")
-        return results
+        # Filter by interests
+        if 'interests' in preferences:
+            filtered_data = self._filter_by_interests(filtered_data, preferences['interests'])
+        
+        # Sort by relevance
+        sorted_data = self._sort_by_relevance(filtered_data, preferences)
+        
+        # If we have fewer than 3 recommendations after filtering, apply less strict filtering
+        if len(sorted_data) < 3:
+            logger.info("Few recommendations after filtering, applying less strict filtering")
+            filtered_data = data
+            
+            # Sort by relevance without strict filtering
+            sorted_data = self._sort_by_relevance(filtered_data, preferences)
+        
+        logger.info(f"Generated {len(sorted_data)} recommendations")
+        return sorted_data
     
     def _recommend_custom(self, preferences: Dict[str, Any]) -> List[Dict[str, Any]]:
         """

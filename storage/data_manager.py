@@ -259,4 +259,46 @@ class DataManager:
         elif data_type == 'itineraries':
             return config.ITINERARIES_FILE
         else:
-            return None 
+            return None
+    
+    def get_data(self, data_type: str) -> List[Dict[str, Any]]:
+        """
+        Get data for the specified type, handling special data formats.
+        
+        Args:
+            data_type (str): Type of data to get ('tours', 'festivals', 'trekking', 'itineraries')
+            
+        Returns:
+            list: List of data items
+        """
+        # For trekking data, special handling to extract 'treks' array from the JSON
+        if data_type == 'trekking':
+            # Check if data is cached
+            if self._cache.get(data_type) is not None:
+                logger.debug(f"Returning cached {data_type} data")
+                return self._cache[data_type]
+                
+            try:
+                file_path = self._get_file_path(data_type)
+                if not file_path or not os.path.exists(file_path):
+                    logger.warning(f"Data file not found for type: {data_type}")
+                    return []
+                
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    raw_data = json.load(f)
+                    
+                # Trekking data is stored with 'treks' as the key for the array
+                if 'treks' in raw_data:
+                    treks_data = raw_data['treks']
+                    self._cache[data_type] = treks_data
+                    logger.debug(f"Loaded and cached {len(treks_data)} {data_type} items")
+                    return treks_data
+                else:
+                    logger.warning(f"No 'treks' key found in {data_type} data")
+                    return []
+            except Exception as e:
+                logger.error(f"Error loading {data_type} data: {str(e)}")
+                return []
+        
+        # For other data types, use the standard load_data method
+        return self.load_data(data_type) 

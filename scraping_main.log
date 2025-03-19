@@ -1,0 +1,31 @@
+2025-03-19 14:12:21,926 - scraping_main - INFO - Starting save_sitemap.py...
+2025-03-19 14:12:22,876 - scraping_main - INFO - Successfully ran save_sitemap.py in 0.95 seconds
+2025-03-19 14:12:22,876 - scraping_main - INFO - Output: Sitemap successfully downloaded to data/sitemap.txt
+
+First few lines of the sitemap:
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://www.breathebhutan.com/</loc>
+  <lastmod>2025-03-19T08:35:15+00:00</lastmod>
+  <priority>1.00</prior...
+2025-03-19 14:12:22,876 - scraping_main - INFO - Completed save_sitemap.py successfully
+2025-03-19 14:12:22,876 - scraping_main - INFO - Waiting 5 seconds before running the next script...
+2025-03-19 14:12:27,878 - scraping_main - INFO - Starting parse_sitemap.py...
+2025-03-19 14:12:28,018 - scraping_main - INFO - Successfully ran parse_sitemap.py in 0.14 seconds
+2025-03-19 14:12:28,019 - scraping_main - INFO - Output: 
+2025-03-19 14:12:28,019 - scraping_main - INFO - Completed parse_sitemap.py successfully
+2025-03-19 14:12:28,019 - scraping_main - INFO - Waiting 5 seconds before running the next script...
+2025-03-19 14:12:33,024 - scraping_main - INFO - Starting scrape_treks_from_sitemap.py...
+2025-03-19 14:15:07,134 - scraping_main - INFO - Successfully ran scrape_treks_from_sitemap.py in 154.11 seconds
+2025-03-19 14:15:07,134 - scraping_main - INFO - Output: 
+2025-03-19 14:15:07,135 - scraping_main - INFO - Completed scrape_treks_from_sitemap.py successfully
+2025-03-19 14:15:07,135 - scraping_main - INFO - Waiting 5 seconds before running the next script...
+2025-03-19 14:15:12,140 - scraping_main - INFO - Starting scrape_festivals_from_sitemap.py...

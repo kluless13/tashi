@@ -1,0 +1,36 @@
+2025-03-19 14:09:23,139 - sitemap_parser - INFO - Found 219 URLs in sitemap
+2025-03-19 14:09:23,143 - sitemap_parser - INFO - treks: 17 URLs
+2025-03-19 14:09:23,143 - sitemap_parser - INFO - festivals: 34 URLs
+2025-03-19 14:09:23,143 - sitemap_parser - INFO - tours: 11 URLs
+2025-03-19 14:09:23,143 - sitemap_parser - INFO - experiences: 15 URLs
+2025-03-19 14:09:23,143 - sitemap_parser - INFO - travel_guides: 25 URLs
+2025-03-19 14:09:23,143 - sitemap_parser - INFO - itineraries: 2 URLs
+2025-03-19 14:09:23,143 - sitemap_parser - INFO - about: 5 URLs
+2025-03-19 14:09:23,143 - sitemap_parser - INFO - miscellaneous: 110 URLs
+2025-03-19 14:09:23,145 - sitemap_parser - INFO - Saved all categorized URLs to data/urls/categorized_urls.json
+2025-03-19 14:09:23,145 - sitemap_parser - INFO - Saved treks URLs to data/urls/treks_urls.json
+2025-03-19 14:09:23,146 - sitemap_parser - INFO - Saved festivals URLs to data/urls/festivals_urls.json
+2025-03-19 14:09:23,146 - sitemap_parser - INFO - Saved tours URLs to data/urls/tours_urls.json
+2025-03-19 14:09:23,146 - sitemap_parser - INFO - Saved experiences URLs to data/urls/experiences_urls.json
+2025-03-19 14:09:23,146 - sitemap_parser - INFO - Saved travel_guides URLs to data/urls/travel_guides_urls.json
+2025-03-19 14:09:23,146 - sitemap_parser - INFO - Saved itineraries URLs to data/urls/itineraries_urls.json
+2025-03-19 14:09:23,146 - sitemap_parser - INFO - Saved about URLs to data/urls/about_urls.json
+2025-03-19 14:09:23,147 - sitemap_parser - INFO - Saved miscellaneous URLs to data/urls/miscellaneous_urls.json
+2025-03-19 14:12:28,004 - sitemap_parser - INFO - Found 219 URLs in sitemap
+2025-03-19 14:12:28,007 - sitemap_parser - INFO - treks: 17 URLs
+2025-03-19 14:12:28,007 - sitemap_parser - INFO - festivals: 34 URLs
+2025-03-19 14:12:28,007 - sitemap_parser - INFO - tours: 11 URLs
+2025-03-19 14:12:28,007 - sitemap_parser - INFO - experiences: 15 URLs
+2025-03-19 14:12:28,007 - sitemap_parser - INFO - travel_guides: 25 URLs
+2025-03-19 14:12:28,007 - sitemap_parser - INFO - itineraries: 2 URLs
+2025-03-19 14:12:28,007 - sitemap_parser - INFO - about: 5 URLs
+2025-03-19 14:12:28,007 - sitemap_parser - INFO - miscellaneous: 110 URLs
+2025-03-19 14:12:28,008 - sitemap_parser - INFO - Saved all categorized URLs to data/urls/categorized_urls.json
+2025-03-19 14:12:28,008 - sitemap_parser - INFO - Saved treks URLs to data/urls/treks_urls.json
+2025-03-19 14:12:28,008 - sitemap_parser - INFO - Saved festivals URLs to data/urls/festivals_urls.json
+2025-03-19 14:12:28,008 - sitemap_parser - INFO - Saved tours URLs to data/urls/tours_urls.json
+2025-03-19 14:12:28,008 - sitemap_parser - INFO - Saved experiences URLs to data/urls/experiences_urls.json
+2025-03-19 14:12:28,008 - sitemap_parser - INFO - Saved travel_guides URLs to data/urls/travel_guides_urls.json
+2025-03-19 14:12:28,008 - sitemap_parser - INFO - Saved itineraries URLs to data/urls/itineraries_urls.json
+2025-03-19 14:12:28,008 - sitemap_parser - INFO - Saved about URLs to data/urls/about_urls.json
+2025-03-19 14:12:28,009 - sitemap_parser - INFO - Saved miscellaneous URLs to data/urls/miscellaneous_urls.json

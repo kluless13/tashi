@@ -207,13 +207,16 @@ class ConversationManager:
             # Transition to recommendations
             conversation['state'] = ConversationState.RECOMMENDATIONS
             
-            # Generate recommendations (placeholder - will be integrated with recommendation engine)
-            # In the actual implementation, this would call the recommendation engine
-            conversation['recommendations'] = [
-                {'id': '1', 'title': 'Cultural Tour of Western Bhutan', 'duration': '7 days', 'summary': 'Explore the cultural highlights of Western Bhutan...'},
-                {'id': '2', 'title': 'Jomolhari Trek', 'duration': '10 days', 'summary': 'Trek to the base of sacred Mount Jomolhari...'},
-                {'id': '3', 'title': 'Thimphu Tshechu Festival', 'duration': '5 days', 'summary': 'Experience the vibrant Thimphu festival...'}
-            ]
+            # Get recommendations from the recommendation engine based on preferences
+            from recommendation.engine import RecommendationEngine
+            recommendation_engine = RecommendationEngine()
+            recommendations = recommendation_engine.recommend_by_preferences(conversation['preferences'])
+            
+            # Update festival dates with current year if needed
+            if conversation['preferences'].get('trip_type') == 'festival':
+                recommendations = self._update_festival_dates(recommendations, conversation['preferences'].get('travel_month'))
+                
+            conversation['recommendations'] = recommendations
             
             # Format recommendations as a message with buttons
             response = self._format_recommendations_with_buttons(conversation['recommendations'])
@@ -318,12 +321,16 @@ class ConversationManager:
             conversation['preferences']['interests'] = interests
             conversation['state'] = ConversationState.RECOMMENDATIONS
             
-            # Generate recommendations (placeholder)
-            conversation['recommendations'] = [
-                {'id': '1', 'title': 'Cultural Tour of Western Bhutan', 'duration': '7 days', 'summary': 'Explore the cultural highlights of Western Bhutan...'},
-                {'id': '2', 'title': 'Jomolhari Trek', 'duration': '10 days', 'summary': 'Trek to the base of sacred Mount Jomolhari...'},
-                {'id': '3', 'title': 'Thimphu Tshechu Festival', 'duration': '5 days', 'summary': 'Experience the vibrant Thimphu festival...'}
-            ]
+            # Get recommendations from the recommendation engine
+            from recommendation.engine import RecommendationEngine
+            recommendation_engine = RecommendationEngine()
+            recommendations = recommendation_engine.recommend_by_preferences(conversation['preferences'])
+            
+            # Update festival dates with current year if needed
+            if conversation['preferences'].get('trip_type') == 'festival':
+                recommendations = self._update_festival_dates(recommendations, conversation['preferences'].get('travel_month'))
+                
+            conversation['recommendations'] = recommendations
         
         elif current_state == ConversationState.RECOMMENDATIONS:
             # Try to process selection
@@ -370,11 +377,19 @@ class ConversationManager:
             conversation = self.conversations[user_id]
             current_state = conversation['state']
             
+            # Get current year for festival dates
+            from datetime import datetime
+            current_year = datetime.now().year
+            
             # Prepare system prompt with current state and preferences
             system_prompt = self.system_prompt.format(
                 state=current_state.name,
                 preferences=json.dumps(conversation['preferences'], indent=2) if conversation['preferences'] else "None yet"
             )
+            
+            # Add guidance about using current year for festival dates
+            if conversation['preferences'].get('trip_type') == 'festival':
+                system_prompt += f"\n\nIMPORTANT: When discussing festivals, ALWAYS use {current_year} or {current_year + 1} as the year for upcoming festivals. NEVER use outdated years like 2022 or 2023. If a festival date is in the past for this year, refer to next year's date."
             
             # Build messages for OpenAI API
             messages = [
@@ -427,6 +442,10 @@ class ConversationManager:
         Returns:
             str: Guidance for the AI model
         """
+        # Get current year for festival dates
+        from datetime import datetime
+        current_year = datetime.now().year
+        
         if state == ConversationState.GREETING:
             return "The user is starting a conversation. Introduce yourself as Tashi, a travel assistant for Breathe Bhutan. Ask about what kind of trip they're interested in."
         
@@ -444,11 +463,27 @@ class ConversationManager:
         
         elif state == ConversationState.RECOMMENDATIONS:
             recommendations = conversation.get('recommendations', [])
-            return f"Based on preferences, offer these {len(recommendations)} recommendations. Ask which one sounds most appealing."
+            guidance = f"Based on preferences, offer these {len(recommendations)} recommendations. Ask which one sounds most appealing."
+            
+            # Add festival-specific guidance if needed
+            if conversation['preferences'].get('trip_type') == 'festival':
+                guidance += f"\n\nIMPORTANT: For all festival dates, use only {current_year} or {current_year + 1} as the year. If a festival's date has already passed this year, refer to next year's festival ({current_year + 1})."
+            
+            return guidance
         
         elif state == ConversationState.RECOMMENDATION_DETAILS:
             selected = conversation.get('selected_recommendation', {})
-            return f"The user is interested in '{selected.get('title', '')}'. Provide more details and ask if they want to proceed with this plan."
+            
+            # Get name from selected recommendation (respecting different data structures)
+            title = selected.get('title', selected.get('name', 'this option'))
+            
+            guidance = f"The user is interested in '{title}'. Provide more details and ask if they want to proceed with this plan."
+            
+            # Add festival-specific guidance if needed
+            if conversation['preferences'].get('trip_type') == 'festival':
+                guidance += f"\n\nIf referring to festival dates, ONLY use {current_year} or {current_year + 1} as the year (NOT 2022 or any other past year)."
+            
+            return guidance
         
         elif state == ConversationState.FINALIZATION:
             return "The user has confirmed their interest. Ask for their name and email to finalize the booking."
@@ -648,36 +683,65 @@ class ConversationManager:
     
     def _format_recommendation_details(self, recommendation: Dict[str, Any]) -> str:
         """
-        Format recommendation details as a message.
+        Format the details of a recommendation.
         
         Args:
-            recommendation (dict): Recommendation item
+            recommendation (dict): Recommendation data
             
         Returns:
-            str: Formatted message
+            str: Formatted recommendation details
         """
-        message = f"Here are the details for {recommendation['title']}:\n\n"
+        # Handle different data structures (trekking vs other recommendations)
+        title = recommendation.get('title', recommendation.get('name', 'Unknown'))
+        duration = recommendation.get('duration', recommendation.get('duration_days', 'Unknown'))
+        description = recommendation.get('description', recommendation.get('summary', ''))
         
-        message += f"Duration: {recommendation['duration']}\n\n"
-        message += f"Description: {recommendation.get('description', recommendation['summary'])}\n\n"
+        message = f"*{title}*\n\n"
+        message += f"*Duration:* {duration} days\n\n"
+        message += f"*Description:* {description}\n\n"
         
         # Add highlights if available
         highlights = recommendation.get('highlights', [])
         if highlights:
-            message += "Highlights:\n"
+            message += "*Highlights:*\n"
             for highlight in highlights:
-                message += f"• {highlight}\n"
+                message += f"- {highlight}\n"
             message += "\n"
         
-        # Add itinerary if available
-        itinerary = recommendation.get('itinerary', [])
+        # Add difficulty level if available (for treks)
+        difficulty = recommendation.get('difficulty_level')
+        if difficulty:
+            message += f"*Difficulty:* {difficulty}\n\n"
+        
+        # Add best season if available (for treks)
+        best_season = recommendation.get('best_season')
+        if best_season:
+            if isinstance(best_season, list):
+                best_season = ", ".join(best_season)
+            message += f"*Best Season:* {best_season}\n\n"
+        
+        # Add daily itinerary if available
+        itinerary = recommendation.get('daily_itinerary', [])
         if itinerary:
-            message += "Itinerary:\n"
-            for day in itinerary:
-                message += f"{day['title']}: {day['description']}\n"
+            message += "*Daily Itinerary:*\n"
+            for day in itinerary[:3]:  # Show only first 3 days to avoid message too long
+                message += f"Day {day.get('day')}: {day.get('title')} - {day.get('description')[:100]}...\n"
+            if len(itinerary) > 3:
+                message += "...(and more)\n"
             message += "\n"
         
-        message += "Would you like to proceed with this travel plan? Please say 'yes' to confirm or 'no' to see other options."
+        # Add itinerary summary if available (for treks without detailed itinerary)
+        itinerary_summary = recommendation.get('daily_itinerary_summary')
+        if itinerary_summary and not itinerary:
+            message += f"*Itinerary Summary:* {itinerary_summary}\n\n"
+        
+        # Add images if available
+        image_url = recommendation.get('image_url')
+        if image_url:
+            message += f"[View Image]({image_url})\n\n"
+        
+        # Add booking options
+        message += "Would you like to book this trip or see other options?"
         
         return message
     
@@ -854,22 +918,72 @@ class ConversationManager:
         if not recommendations:
             return "I couldn't find any recommendations matching your preferences. Let's try again with different preferences."
         
+        # Check if these are trekking recommendations
+        is_trekking = any(rec.get('id', '').startswith('trek') or 'trek' in rec.get('id', '').lower() for rec in recommendations)
+        
+        # If these are trekking recommendations, load all available treks
+        if is_trekking:
+            try:
+                # Load all treks from the data file
+                import json
+                import os
+                
+                treks_file = os.path.join('data', 'trekking', 'trekking.json')
+                if os.path.exists(treks_file):
+                    with open(treks_file, 'r', encoding='utf-8') as f:
+                        all_treks_data = json.load(f)
+                        all_treks = all_treks_data.get('treks', [])
+                        
+                    # Use all treks instead of the limited recommendations
+                    if all_treks:
+                        recommendations = all_treks
+                        logger.info(f"Using all {len(all_treks)} treks from data file")
+            except Exception as e:
+                logger.error(f"Error loading all trek options: {str(e)}")
+        
         message = "Based on your preferences, here are some recommendations for your trip to Bhutan:\n\n"
         
-        for i, rec in enumerate(recommendations, 1):
-            message += f"{i}. {rec['title']} ({rec['duration']})\n"
-            message += f"   {rec['summary']}\n\n"
+        # Display only a summary of the recommendations in the text message
+        for i, rec in enumerate(recommendations[:5], 1):
+            title = rec.get('title', rec.get('name', 'Unknown Trek'))
+            duration = rec.get('duration', rec.get('duration_days', 'Unknown duration'))
+            summary = rec.get('summary', rec.get('description', ''))
+            # Truncate the summary if it's too long
+            if len(summary) > 100:
+                summary = summary[:97] + "..."
+                
+            message += f"{i}. {title} ({duration} days)\n"
+            message += f"   {summary}\n\n"
+        
+        if len(recommendations) > 5:
+            message += f"And {len(recommendations) - 5} more options available as buttons below.\n\n"
         
         # Create keyboard buttons in JSON format
         keyboard = {"inline_keyboard": []}
         
+        # Create buttons in rows of 2 for better layout
+        buttons = []
         for i, rec in enumerate(recommendations, 1):
-            keyboard["inline_keyboard"].append([{
-                "text": f"{i}. {rec['title']}",
+            title = rec.get('title', rec.get('name', 'Unknown Trek'))
+            button_text = f"{i}. {title}"
+            
+            # Truncate button text if too long
+            if len(button_text) > 30:
+                button_text = button_text[:27] + "..."
+                
+            buttons.append({
+                "text": button_text,
                 "callback_data": str(i)
-            }])
+            })
         
-        # Add "start over" button
+        # Arrange buttons in rows of 2
+        for i in range(0, len(buttons), 2):
+            row = [buttons[i]]
+            if i + 1 < len(buttons):
+                row.append(buttons[i + 1])
+            keyboard["inline_keyboard"].append(row)
+        
+        # Add "start over" button in its own row
         keyboard["inline_keyboard"].append([{
             "text": "Start Over",
             "callback_data": "start over"
@@ -884,48 +998,77 @@ class ConversationManager:
     
     def _format_recommendation_details_with_buttons(self, recommendation: Dict[str, Any]) -> str:
         """
-        Format recommendation details with confirmation buttons.
+        Format recommendation details as a message with inline keyboard buttons.
         
         Args:
-            recommendation (dict): Recommendation item
+            recommendation (dict): Recommendation data
             
         Returns:
             str: Formatted message with keyboard
         """
-        message = f"Here are the details for {recommendation['title']}:\n\n"
+        # Handle different data structures (trekking vs other recommendations)
+        title = recommendation.get('title', recommendation.get('name', 'Unknown'))
+        duration = recommendation.get('duration', recommendation.get('duration_days', 'Unknown'))
+        description = recommendation.get('description', recommendation.get('summary', ''))
         
-        message += f"Duration: {recommendation['duration']}\n\n"
-        message += f"Description: {recommendation.get('description', recommendation['summary'])}\n\n"
+        message = f"*{title}*\n\n"
+        message += f"*Duration:* {duration} days\n\n"
+        message += f"*Description:* {description}\n\n"
         
         # Add highlights if available
         highlights = recommendation.get('highlights', [])
         if highlights:
-            message += "Highlights:\n"
+            message += "*Highlights:*\n"
             for highlight in highlights:
-                message += f"• {highlight}\n"
+                message += f"- {highlight}\n"
             message += "\n"
         
-        # Add itinerary if available
-        itinerary = recommendation.get('itinerary', [])
+        # Add difficulty level if available (for treks)
+        difficulty = recommendation.get('difficulty_level')
+        if difficulty:
+            message += f"*Difficulty:* {difficulty}\n\n"
+        
+        # Add best season if available (for treks)
+        best_season = recommendation.get('best_season')
+        if best_season:
+            if isinstance(best_season, list):
+                best_season = ", ".join(best_season)
+            message += f"*Best Season:* {best_season}\n\n"
+        
+        # Add daily itinerary if available
+        itinerary = recommendation.get('daily_itinerary', [])
         if itinerary:
-            message += "Itinerary:\n"
-            for day in itinerary:
-                message += f"{day['title']}: {day['description']}\n"
+            message += "*Daily Itinerary:*\n"
+            for day in itinerary[:3]:  # Show only first 3 days to avoid message too long
+                message += f"Day {day.get('day')}: {day.get('title')} - {day.get('description')[:100]}...\n"
+            if len(itinerary) > 3:
+                message += "...(and more)\n"
             message += "\n"
         
-        # Add confirmation buttons
-        keyboard = {
-            "inline_keyboard": [
-                [
-                    {"text": "Yes, proceed with this plan", "callback_data": "yes"},
-                    {"text": "No, show other options", "callback_data": "no"}
-                ]
+        # Add itinerary summary if available (for treks without detailed itinerary)
+        itinerary_summary = recommendation.get('daily_itinerary_summary')
+        if itinerary_summary and not itinerary:
+            message += f"*Itinerary Summary:* {itinerary_summary}\n\n"
+        
+        # Add images if available
+        image_url = recommendation.get('image_url')
+        if image_url:
+            message += f"[View Image]({image_url})\n\n"
+        
+        # Create keyboard buttons in JSON format
+        keyboard = {"inline_keyboard": [
+            [
+                {"text": "Book This Trip", "callback_data": "book"},
+                {"text": "See Other Options", "callback_data": "back"}
+            ],
+            [
+                {"text": "Start Over", "callback_data": "start over"}
             ]
-        }
+        ]}
         
         # Convert keyboard to JSON string and attach to the message
         import json
-        message += "Would you like to proceed with this travel plan?"
+        message += "What would you like to do next?"
         message += f"\n<<keyboard:{json.dumps(keyboard)}>>"
         
         return message
@@ -1006,4 +1149,110 @@ class ConversationManager:
                     target_month = 12
                 travel_month = months[target_month - 1].capitalize()
         
-        return duration, travel_month 
+        return duration, travel_month
+    
+    def _update_festival_dates(self, recommendations: List[Dict[str, Any]], travel_month: str = None) -> List[Dict[str, Any]]:
+        """
+        Update festival dates to use current or upcoming year instead of hardcoded years.
+        
+        Args:
+            recommendations (list): List of festival recommendations
+            travel_month (str): User's preferred travel month
+            
+        Returns:
+            list: Updated recommendations
+        """
+        from datetime import datetime
+        
+        # Get current date
+        current_date = datetime.now()
+        current_year = current_date.year
+        current_month = current_date.month
+        
+        # Clone the recommendations to avoid modifying the original data
+        updated_recommendations = []
+        
+        for rec in recommendations:
+            # Clone the recommendation
+            updated_rec = rec.copy()
+            
+            # Get festival month (from dates field)
+            festival_dates = updated_rec.get('dates', '')
+            festival_month = None
+            
+            # Extract month from dates field
+            months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ]
+            
+            for i, month in enumerate(months):
+                if month in festival_dates or month.lower() in festival_dates:
+                    festival_month = i + 1  # 1-indexed month
+                    break
+                
+            if not festival_month:
+                # Try with shortened month names
+                for i, month in enumerate(months):
+                    if month[:3] in festival_dates:
+                        festival_month = i + 1
+                        break
+            
+            # Determine appropriate year
+            festival_year = current_year
+            
+            # If festival month is earlier than current month, use next year
+            if festival_month and festival_month < current_month:
+                festival_year = current_year + 1
+                
+            # If user's preferred travel month is specified, align with that
+            if travel_month:
+                user_month = None
+                for i, month in enumerate(months):
+                    if month.lower() == travel_month.lower():
+                        user_month = i + 1
+                        break
+                
+                if user_month:
+                    # If user's month is this year or next year
+                    if user_month < current_month:
+                        # User wants to travel next year
+                        festival_year = current_year + 1
+                    else:
+                        # User wants to travel this year
+                        festival_year = current_year
+            
+            # Update the name and description with the year
+            if 'name' in updated_rec:
+                # Extract dates from festival dates field
+                import re
+                date_pattern = r'\((.*?)\d+.*?\)'
+                date_match = re.search(date_pattern, festival_dates)
+                
+                if date_match:
+                    date_info = date_match.group(1).strip()
+                    
+                    # Check if there are specific dates
+                    day_pattern = r'(\d+)(st|nd|rd|th)'
+                    day_matches = re.findall(day_pattern, festival_dates)
+                    
+                    if day_matches:
+                        day_numbers = [m[0] for m in day_matches]
+                        if len(day_numbers) >= 2:
+                            # Format: Name (Month Day-Day, Year)
+                            days_range = f"{day_numbers[0]}-{day_numbers[-1]}"
+                            updated_rec['name'] = f"{updated_rec['name']} ({months[festival_month-1]} {days_range}, {festival_year})"
+                        else:
+                            # Format: Name (Month Day, Year)
+                            updated_rec['name'] = f"{updated_rec['name']} ({months[festival_month-1]} {day_numbers[0]}, {festival_year})"
+                    else:
+                        # Format: Name (Month Year)
+                        updated_rec['name'] = f"{updated_rec['name']} ({months[festival_month-1]} {festival_year})"
+                else:
+                    if festival_month:
+                        # Just append the year if we at least know the month
+                        updated_rec['name'] = f"{updated_rec['name']} ({months[festival_month-1]} {festival_year})"
+            
+            updated_recommendations.append(updated_rec)
+        
+        return updated_recommendations 
